@@ -42,7 +42,7 @@ parser.add_argument(
 parser.add_argument("--data_test", type=str, default="DRSRD", help="test dataset name")
 parser.add_argument(
     "--data_range", type=str, default="1-1600/1-200", help="train/test data range"
-)
+)  # 训练数据范围
 parser.add_argument("--ext", type=str, default="sep", help="dataset file extension")
 parser.add_argument("--scale", type=str, default="4", help="super resolution scale")
 parser.add_argument("--patch_size", type=int, default=64, help="output patch size")
@@ -52,7 +52,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--chop", type=bool, default=True, help="enable memory-efficient forward"
-)
+)  # 是否启用内存高效的向前传播
 parser.add_argument(
     "--no_augment", action="store_true", help="do not use data augmentation"
 )
@@ -72,7 +72,9 @@ parser.add_argument(
 parser.add_argument(
     "--n_resblocks", type=int, default=16, help="number of residual blocks"
 )
-parser.add_argument("--n_feats", type=int, default=64, help="number of feature maps")
+parser.add_argument(
+    "--n_feats", type=int, default=64, help="number of feature maps"
+)  # 特征数量
 parser.add_argument("--res_scale", type=float, default=0.1, help="residual scaling")
 parser.add_argument(
     "--shift_mean", default=True, help="subtract pixel mean from the input"
@@ -120,7 +122,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--self_ensemble", action="store_true", help="use self-ensemble method for test"
-)
+)  # 是否启用自集成方法进行测试
 parser.add_argument(
     "--test_only", action="store_true", help="set this option to test the model"
 )

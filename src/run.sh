@@ -15,50 +15,77 @@ fi
 
 MODE=$1
 
+# 参数说明
+# --dir_data: 数据集目录
+# --data_train: 训练数据集
+# --data_test: 测试数据集
+# --data_range: 数据集范围
+# --model: 模型
+# --save: 保存模型
+# --n_GPUs: 使用GPU数量
+# --scale: 缩放比例
+# --save_results: 保存结果
+# --epochs: 训练轮数
+# --batch_size: 批量大小
+# --patch_size: 补丁大小
+# --warm_up: 预热轮数
+# --gclip: 梯度裁剪
+# --reset: 重置模型
+# --window_sizes: 窗口大小
+# --lr: 学习率
+# --test_every: 测试间隔
+# --n_feats: 特征数量
+# --n_resgroups: 残差组数量
+# --n_resblocks: 残差块数量
+# --print_every: 打印间隔
+# --loss: 损失函数
+# --optimizer: 优化器
+# --noise: 添加噪声z
+
 if [ "$MODE" == "train" ]; then
-    # 训练命令
+    # 训练命令（注意：行末 \ 后不能有空格或注释，否则会断开命令）
     CUDA_VISIBLE_DEVICES=1 uv run main.py \
-        --dir_data "$data_dir" \          # 训练和测试数据的主目录
-        --data_train DRSRD \              # 指定用于训练的数据集名称
-        --data_test DRSRD \               # 指定用于测试的数据集名称
-        --data_range '1-1600/1-200' \     # 训练/测试使用的数据序号范围（训练1-1600，测试1-200）
-        --model EAST \                    # 使用的模型名称（EAST）
-        --save '0211train' \              # 结果保存文件夹名
-        --n_GPUs 1 \                      # 使用的GPU数量
-        --scale 4 \                       # 超分辨放大倍数
-        --save_results \                  # 是否保存结果
-        --epochs 10 \                     # 总训练轮数
-        --batch_size 8 \                  # 批量大小
-        --patch_size 64 \                 # 输入patch的尺寸
-        --warm_up 10 \                    # warm up步数，如果为0则不使用
-        --gclip 20 \                      # 梯度裁剪阈值（0为不裁剪）
-        --reset \                         # 是否重置训练/重新开始
-        --window_sizes 2-4-8 \            # 滑动窗口的尺寸配置
-        --lr 1e-4 \                       # 学习率
-        --test_every 2 \                  # 每多少个epoch进行一次测试
-        --n_feats 180 \                   # 特征层数
-        --n_resgroups 7 \                 # 残差组数量
-        --n_resblocks 5 \                 # 每组的残差块数量
-        --print_every 50 \                # 每多少次输出一次训练状态
-        --loss 1*Charbonnier+2*HF \       # 损失函数类型及权重
-        --optimizer AdamW \               # 优化器类型
-        --noise                           # 是否在输入中加噪声数据增强
+        --dir_data "$data_dir" \
+        --data_train DRSRD \
+        --data_test DRSRD \
+        --data_range '1-1600/1-200' \
+        --model EAST \
+        --save '0211train' \
+        --n_GPUs 1 \
+        --scale 4 \
+        --save_results \
+        --epochs 50 \
+        --batch_size 8 \
+        --patch_size 64 \
+        --warm_up 10 \
+        --gclip 20 \
+        --reset \
+        --window_sizes '2-4-8' \
+        --lr 1e-4 \
+        --test_every 10 \
+        --n_feats 180 \
+        --n_resgroups 7 \
+        --n_resblocks 5 \
+        --print_every 50 \
+        --loss '1*Charbonnier+2*HF' \
+        --optimizer AdamW \
+        --noise
 elif [ "$MODE" == "test" ]; then
     # 测试命令
     CUDA_VISIBLE_DEVICES=1 uv run main.py \
-        --model EAST \                            # 使用的模型名称（EAST）
-        --n_GPUs 1 \                              # 使用的GPU数量
-        --dir_data "$data_dir" \                  # 测试数据主目录
-        --scale 4 \                               # 超分辨放大倍数
-        --pre_train ../models/model_best.pt \     # 预训练模型文件路径
-        --save 0211test \                         # 测试结果保存文件夹
-        --data_range 1-300/1-300 \                # 测试用数据范围（训练/测试）
-        --n_feats 180 \                           # 特征层数
-        --n_resgroups 7 \                         # 残差组数量
-        --n_resblocks 5 \                         # 每组残差块数量
-        --patch_size 64 \                         # 输入patch的尺寸
-        --test_only \                             # 只进行测试
-        --save_results                            # 保存测试结果
+        --model EAST \
+        --n_GPUs 1 \
+        --dir_data "$data_dir" \
+        --scale 4 \
+        --pre_train ../experiment/0211train/model/model_best.pt \
+        --save 0211test \
+        --data_range '1-200/1-200' \
+        --n_feats 180 \
+        --n_resgroups 7 \
+        --n_resblocks 5 \
+        --patch_size 64 \
+        --test_only \
+        --save_results
 else
     usage
 fi

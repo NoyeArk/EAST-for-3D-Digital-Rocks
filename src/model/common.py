@@ -7,8 +7,8 @@ import torch.nn.functional as F
 
 def default_conv(in_channels, out_channels, kernel_size, bias=True):
     return nn.Conv3d(
-        in_channels, out_channels, kernel_size,
-        padding=(kernel_size // 2), bias=bias)
+        in_channels, out_channels, kernel_size, padding=(kernel_size // 2), bias=bias
+    )
 
 
 def fill(x):
@@ -28,7 +28,7 @@ class SpaceToDepth(nn.Module):
         N, C, H, W = x.size()
         x = x.view(N, C, H // self.bs, self.bs, W // self.bs, self.bs)
         x = x.permute(0, 3, 5, 1, 2, 4).contiguous()
-        x = x.view(N, C * (self.bs ** 2), H // self.bs, W // self.bs)
+        x = x.view(N, C * (self.bs**2), H // self.bs, W // self.bs)
         return x
 
 
@@ -84,17 +84,31 @@ class Denoiser(nn.Module):
 
 
 class MeanShift(nn.Conv3d):
+    """
+    对输入张量执行均值/标准差归一化或反归一化操作的3D卷积层。
+    主要用于在网络前后平移、标准化输入值范围，常用于图像增强或复原任务。
+
+    Args:
+        rgb_range (float): 输入数值的范围（如255）。
+        rgb_mean (tuple): 均值，默认为(0.4516,)。可设置通道均值（如ImageNet: 0.4488, 0.4371, 0.4040）。
+        rgb_std (tuple): 标准差，默认为(1.0,)，可设置每个通道的标准差。
+        sign (int): -1代表归一化（减均值），+1代表反归一化（加均值）。
+    """
+
     def __init__(
-        self, rgb_range,
-        rgb_mean=(0.4516,), rgb_std=(1.0,), sign=-1):    # rgbmean 0.4488, 0.4371, 0.4040;train0.4516
+        self, rgb_range, rgb_mean=(0.4516,), rgb_std=(1.0,), sign=-1
+    ):  # rgbmean 0.4488, 0.4371, 0.4040; train0.4516
 
         super(MeanShift, self).__init__(1, 1, kernel_size=1)
+        # 将标准差转为Tensor
         std = torch.Tensor(rgb_std)
+        # 配置weight为单位阵除以std，实现归一化（或重缩放）
         self.weight.data = torch.eye(1).view(1, 1, 1, 1, 1) / std.view(1, 1, 1, 1, 1)
+        # 配置bias为±rgb_range * 均值 / std，实现加/减均值功能
         self.bias.data = sign * rgb_range * torch.Tensor(rgb_mean) / std
+        # 冻结参数，使该层不参与训练
         for p in self.parameters():
             p.requires_grad = False
-
 
 
 def get_mean_std(data):
@@ -109,8 +123,16 @@ def get_mean_std(data):
 
 class BasicBlock(nn.Module):
     def __init__(
-            self, conv, in_channels, out_channels, kernel_size, stride=1, bias=False,
-            bn=True, act=nn.ReLU(True)):
+        self,
+        conv,
+        in_channels,
+        out_channels,
+        kernel_size,
+        stride=1,
+        bias=False,
+        bn=True,
+        act=nn.ReLU(True),
+    ):
         super(BasicBlock, self).__init__()
         m = [conv(in_channels, out_channels, kernel_size, bias=bias)]
         if bn:
@@ -125,8 +147,15 @@ class BasicBlock(nn.Module):
 
 class ResBlock(nn.Module):
     def __init__(
-            self, conv, n_feats, kernel_size,
-            bias=True, bn=False, act=nn.ReLU(True), res_scale=1):
+        self,
+        conv,
+        n_feats,
+        kernel_size,
+        bias=True,
+        bn=False,
+        act=nn.ReLU(True),
+        res_scale=1,
+    ):
 
         super(ResBlock, self).__init__()
         m = []
@@ -147,31 +176,61 @@ class ResBlock(nn.Module):
         return res
 
 
-
-'''
+"""
 reference: http://www.multisilicon.com/blog/a25332339.html
-'''
+"""
+
+
 class PixelShuffle3d(nn.Module):
-    '''This class is a 3d version of pixelshuffle.'''
+    """
+    3D版本的像素重组（PixelShuffle）操作，用于将特征图的通道数转换为空间分辨率。
+    主要用于上采样阶段，可将通道数映射为空间上的扩大，如(1, C, D, H, W) -> (1, C/r^3, D*r, H*r, W*r)。
+    """
+
     def __init__(self, scale):
-        '''
-        :param scale: upsample scale
-        '''
+        """
+        初始化PixelShuffle3d模块。
+
+        Args:
+            scale (int): 上采样的放大因子（如2或4）。
+        """
         super().__init__()
         self.scale = scale
 
     def forward(self, input):
+        """
+        前向传播函数，将输入特征图的通道信息重排至depth/height/width维实现上采样。
+
+        Args:
+            input (Tensor): 输入5D张量，形状为(batch_size, channels, D, H, W)，
+                            其中channels必须能被scale**3整除。
+
+        Returns:
+            Tensor: 上采样后的5D张量，shape为(batch_size, channels//scale**3, D*scale, H*scale, W*scale)
+        """
         batch_size, channels, in_depth, in_height, in_width = input.size()
-        nOut = channels // self.scale ** 3
+        nOut = channels // self.scale**3  # 输出通道数
 
         out_depth = in_depth * self.scale
         out_height = in_height * self.scale
         out_width = in_width * self.scale
 
-        input_view = input.contiguous().view(batch_size, nOut, self.scale, self.scale, self.scale, in_depth, in_height, in_width)
+        # [B, nOut*r*r*r, D, H, W] -> [B, nOut, r, r, r, D, H, W]
+        input_view = input.contiguous().view(
+            batch_size,
+            nOut,
+            self.scale,
+            self.scale,
+            self.scale,
+            in_depth,
+            in_height,
+            in_width,
+        )
 
+        # 把r三个维度分别插入到D, H, W，转换为[B, nOut, D, r, H, r, W, r]
         output = input_view.permute(0, 1, 5, 2, 6, 3, 7, 4).contiguous()
 
+        # 合并每个空间维度和对应的scale维度，形状变为[B, nOut, D*r, H*r, W*r]
         return output.view(batch_size, nOut, out_depth, out_height, out_width)
 
 
@@ -185,9 +244,9 @@ class Upsampler(nn.Sequential):
                 m.append(PixelShuffle3d(2))
                 if bn:
                     m.append(nn.BatchNorm3d(n_feats))
-                if act == 'relu':
+                if act == "relu":
                     m.append(nn.ReLU(True))
-                elif act == 'prelu':
+                elif act == "prelu":
                     m.append(nn.PReLU(n_feats))
 
         elif scale == 3:
@@ -195,9 +254,9 @@ class Upsampler(nn.Sequential):
             m.append(nn.PixelShuffle3d(3))
             if bn:
                 m.append(nn.BatchNorm3d(n_feats))
-            if act == 'relu':
+            if act == "relu":
                 m.append(nn.ReLU(True))
-            elif act == 'prelu':
+            elif act == "prelu":
                 m.append(nn.PReLU(n_feats))
         else:
             raise NotImplementedError
@@ -207,42 +266,44 @@ class Upsampler(nn.Sequential):
 
 # Up conv   described in https://distill.pub/2016/deconv-checkerboard/
 class Upconv(nn.Sequential):
-    def __init__(self, scale, n_feats, mode='nearest', act=False, bias=True):  # nearest/trilinear
+    def __init__(
+        self, scale, n_feats, mode="nearest", act=False, bias=True
+    ):  # nearest/trilinear
 
         # m = [default_conv(n_feats, n_feats, 3, bias=bias)]  # LRConv
         m = []
 
         if scale == 4:
-            m.append(nn.Upsample(scale_factor=(4,4,4), mode=mode))
+            m.append(nn.Upsample(scale_factor=(4, 4, 4), mode=mode))
             m.append(default_conv(n_feats, n_feats, 3, bias=bias))
-            if act == 'relu':
+            if act == "relu":
                 m.append(nn.ReLU(True))
-            elif act == 'prelu':
+            elif act == "prelu":
                 m.append(nn.PReLU(n_feats))
-            elif act == 'leakyrelu':
+            elif act == "leakyrelu":
                 m.append(nn.LeakyReLU(True))
         elif (scale & (scale - 1)) == 0:  # Is scale = 2^n?
             for _ in range(int(math.log(scale, 2))):
-                m.append(nn.Upsample(scale_factor=(2,2,2), mode=mode))
+                m.append(nn.Upsample(scale_factor=(2, 2, 2), mode=mode))
                 m.append(default_conv(n_feats, n_feats, 3, bias=bias))
-                if act == 'relu':
+                if act == "relu":
                     m.append(nn.ReLU(True))
-                elif act == 'prelu':
+                elif act == "prelu":
                     m.append(nn.PReLU(n_feats))
-                elif act == 'leakyrelu':
+                elif act == "leakyrelu":
                     m.append(nn.LeakyReLU(True))
         elif scale == 3:
             m.append(nn.Upsample(scale_factor=(scale, scale, scale), mode=mode))
             m.append(default_conv(n_feats, n_feats, 3, bias=bias))
-            if act == 'relu':
+            if act == "relu":
                 m.append(nn.ReLU(True))
-            elif act == 'prelu':
+            elif act == "prelu":
                 m.append(nn.PReLU(n_feats))
-            elif act == 'leakyrelu':
+            elif act == "leakyrelu":
                 m.append(nn.LeakyReLU(True))
         else:
             raise NotImplementedError
-        
+
         # m.append(default_conv(n_feats, n_feats, 3, bias=bias))  # HRConv
 
         super(Upconv, self).__init__(*m)

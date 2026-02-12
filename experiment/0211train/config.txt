@@ -1,4 +1,4 @@
-2026-02-11-15:06:11
+2026-02-12-16:00:09
 
 debug: False
 template: .
@@ -36,8 +36,8 @@ RDNconfig: B
 n_resgroups: 7
 reduction: 16
 reset: True
-test_every: 12
-epochs: 10
+test_every: 10
+epochs: 50
 batch_size: 8
 split_batch: 1
 self_ensemble: False

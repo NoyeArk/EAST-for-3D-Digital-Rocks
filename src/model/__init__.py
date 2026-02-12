@@ -181,45 +181,66 @@ class Model(nn.Module):
         return output
 
     def forward_x8(self, *args, forward_function=None):
+        """
+        对输入特征图进行8种变换（原始+翻转/转置）实现模型x8自集成，提升性能。
+
+        Args:
+            *args: 输入特征（通常是torch.Tensor类型）
+            forward_function: 前向推理函数
+
+        Returns:
+            自集成后的输出张量（或列表）
+        """
+
         def _transform(v, op):
+            """
+            对输入张量v进行指定的变换操作（翻转/转置），返回变换后的张量。
+            op: 'v' - 上下翻转, 'h' - 左右翻转, 't' - 转置
+            由于numpy只支持cpu, 所以需要先将tensor拷贝到cpu，通过numpy操作再转回tensor。
+            """
             if self.precision != "single":
-                v = v.float()
+                v = v.float()  # 保证数值类型兼容
 
-            v2np = v.data.cpu().numpy()
+            v2np = v.data.cpu().numpy()  # 转为numpy，便于后续变换
             if op == "v":
-                tfnp = v2np[:, :, :, ::-1].copy()
+                tfnp = v2np[:, :, :, ::-1].copy()  # 沿高度方向翻转
             elif op == "h":
-                tfnp = v2np[:, :, ::-1, :].copy()
+                tfnp = v2np[:, :, ::-1, :].copy()  # 沿宽度方向翻转
             elif op == "t":
-                tfnp = v2np.transpose((0, 1, 3, 2)).copy()
+                tfnp = v2np.transpose((0, 1, 3, 2)).copy()  # 宽高转置
 
-            ret = torch.Tensor(tfnp).to(self.device)
+            ret = torch.Tensor(tfnp).to(self.device)  # 再转回tensor
             if self.precision == "half":
                 ret = ret.half()
-
             return ret
 
+        # 1. 对每个输入分别扩展成8种变换后的张量，并收集
         list_x = []
         for a in args:
-            x = [a]
+            x = [a]  # 原始
             for tf in "v", "h", "t":
-                x.extend([_transform(_x, tf) for _x in x])
-
+                x.extend(
+                    [_transform(_x, tf) for _x in x]
+                )  # 累加3种变换，每次都综合已有所有变换
             list_x.append(x)
 
+        # 2. 对所有变换组合分别执行模型前向
         list_y = []
         for x in zip(*list_x):
             y = forward_function(*x)
             if not isinstance(y, list):
                 y = [y]
             if not list_y:
+                # 第一次：为每个输出分支准备1个list
                 list_y = [[_y] for _y in y]
             else:
                 for _list_y, _y in zip(list_y, y):
                     _list_y.append(_y)
 
+        # 3. 将得到的输出逆变换还原回原状
         for _list_y in list_y:
             for i in range(len(_list_y)):
+                # 前4种是正向，后4种需要逆变换
                 if i > 3:
                     _list_y[i] = _transform(_list_y[i], "t")
                 if i % 4 > 1:
@@ -227,6 +248,7 @@ class Model(nn.Module):
                 if (i % 4) % 2 == 1:
                     _list_y[i] = _transform(_list_y[i], "v")
 
+        # 4. 对所有实现增强的输出取均值得到最终输出（注意保持维度一致）
         y = [torch.cat(_y, dim=0).mean(dim=0, keepdim=True) for _y in list_y]
         if len(y) == 1:
             y = y[0]
