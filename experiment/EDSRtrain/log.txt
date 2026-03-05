@@ -1,0 +1,145 @@
+EDSR(
+  (sub_mean): MeanShift(1, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+  (add_mean): MeanShift(1, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+  (head): Sequential(
+    (0): Conv3d(1, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+  )
+  (body): Sequential(
+    (0): ResBlock(
+      (body): Sequential(
+        (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (1): ResBlock(
+      (body): Sequential(
+        (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (2): ResBlock(
+      (body): Sequential(
+        (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (3): ResBlock(
+      (body): Sequential(
+        (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (4): ResBlock(
+      (body): Sequential(
+        (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+        (1): ReLU(inplace=True)
+        (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (5): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+  )
+  (tail): Sequential(
+    (0): Upsampler(
+      (0): Conv3d(180, 1440, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (1): PixelShuffle3d()
+      (2): Conv3d(180, 1440, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (3): PixelShuffle3d()
+    )
+    (1): Conv3d(180, 1, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+  )
+)
+Parameters: 23634365
+[Epoch 1]	Learning rate: 0.00e+2
+[400/1600]	[Charbonnier: 44.5305][HF: 24.5097][Total: 69.0403]	14.4+20.4s
+[800/1600]	[Charbonnier: 44.7126][HF: 24.3793][Total: 69.0918]	13.3+21.2s
+[1200/1600]	[Charbonnier: 45.1543][HF: 24.1758][Total: 69.3300]	13.4+21.2s
+[1600/1600]	[Charbonnier: 45.1413][HF: 24.2371][Total: 69.3784]	13.4+21.3s
+[Epoch 2]	Learning rate: 1.00e-5
+[400/1600]	[Charbonnier: 24.0767][HF: 23.6056][Total: 47.6822]	13.4+21.2s
+[800/1600]	[Charbonnier: 19.2290][HF: 22.7711][Total: 42.0000]	13.4+21.3s
+[1200/1600]	[Charbonnier: 17.1474][HF: 22.3577][Total: 39.5051]	13.4+21.3s
+[1600/1600]	[Charbonnier: 16.0169][HF: 22.1040][Total: 38.1209]	13.4+21.2s
+
+Evaluation:
+[DRSRD x4]	PSNR: 24.399 (Best: 24.399 @epoch 2)
+Forward: 42.41s
+
+Saving...
+Total: 43.64s
+
+[Epoch 3]	Learning rate: 2.00e-5
+[400/1600]	[Charbonnier: 12.7656][HF: 21.3790][Total: 34.1446]	13.4+21.0s
+[800/1600]	[Charbonnier: 12.6395][HF: 21.3266][Total: 33.9661]	13.3+21.2s
+[1200/1600]	[Charbonnier: 12.6284][HF: 21.4043][Total: 34.0327]	13.1+21.3s
+[1600/1600]	[Charbonnier: 12.5520][HF: 21.3282][Total: 33.8802]	13.3+21.3s
+[Epoch 4]	Learning rate: 3.00e-5
+[400/1600]	[Charbonnier: 12.4865][HF: 21.3898][Total: 33.8763]	13.3+21.2s
+[800/1600]	[Charbonnier: 12.5272][HF: 21.5832][Total: 34.1105]	13.3+21.3s
+[1200/1600]	[Charbonnier: 12.4037][HF: 21.3318][Total: 33.7354]	13.3+21.2s
+[1600/1600]	[Charbonnier: 12.3215][HF: 21.2162][Total: 33.5377]	13.2+21.3s
+
+Evaluation:
+[DRSRD x4]	PSNR: 24.462 (Best: 24.462 @epoch 4)
+Forward: 42.31s
+
+Saving...
+Total: 44.42s
+
+[Epoch 5]	Learning rate: 4.00e-5
+[400/1600]	[Charbonnier: 12.0476][HF: 20.8415][Total: 32.8891]	13.2+21.2s
+[800/1600]	[Charbonnier: 12.1111][HF: 21.0747][Total: 33.1857]	13.5+21.3s
+[1200/1600]	[Charbonnier: 12.0984][HF: 21.0860][Total: 33.1845]	13.4+21.2s
+[1600/1600]	[Charbonnier: 12.1184][HF: 21.0822][Total: 33.2006]	13.3+21.2s
+[Epoch 6]	Learning rate: 5.00e-5
+[400/1600]	[Charbonnier: 12.1141][HF: 21.1018][Total: 33.2159]	13.4+21.2s
+[800/1600]	[Charbonnier: 12.0234][HF: 21.0792][Total: 33.1026]	13.3+21.2s
+[1200/1600]	[Charbonnier: 11.9511][HF: 20.9735][Total: 32.9246]	13.3+21.2s
+[1600/1600]	[Charbonnier: 11.9036][HF: 20.8725][Total: 32.7762]	13.2+21.2s
+
+Evaluation:
+[DRSRD x4]	PSNR: 24.838 (Best: 24.838 @epoch 6)
+Forward: 42.30s
+
+Saving...
+Total: 43.99s
+
+[Epoch 7]	Learning rate: 6.00e-5
+[400/1600]	[Charbonnier: 11.8646][HF: 21.0097][Total: 32.8743]	13.2+20.9s
+[800/1600]	[Charbonnier: 11.6186][HF: 20.6275][Total: 32.2461]	13.3+21.2s
+[1200/1600]	[Charbonnier: 11.5397][HF: 20.5399][Total: 32.0795]	13.3+21.2s
+[1600/1600]	[Charbonnier: 11.5373][HF: 20.4888][Total: 32.0261]	13.3+21.2s
+[Epoch 8]	Learning rate: 7.00e-5
+[400/1600]	[Charbonnier: 11.3043][HF: 19.9836][Total: 31.2879]	13.3+21.2s
+[800/1600]	[Charbonnier: 11.4825][HF: 20.3905][Total: 31.8730]	13.1+21.2s
+[1200/1600]	[Charbonnier: 11.4303][HF: 20.3487][Total: 31.7790]	13.2+21.3s
+[1600/1600]	[Charbonnier: 11.3799][HF: 20.2112][Total: 31.5911]	13.2+21.3s
+
+Evaluation:
+[DRSRD x4]	PSNR: 25.444 (Best: 25.444 @epoch 8)
+Forward: 42.27s
+
+Saving...
+Total: 44.24s
+
+[Epoch 9]	Learning rate: 8.00e-5
+[400/1600]	[Charbonnier: 11.4952][HF: 20.2241][Total: 31.7193]	13.4+21.0s
+[800/1600]	[Charbonnier: 11.4593][HF: 20.2114][Total: 31.6708]	13.4+21.2s
+[1200/1600]	[Charbonnier: 11.3612][HF: 20.0645][Total: 31.4257]	13.3+21.2s
+[1600/1600]	[Charbonnier: 11.3267][HF: 20.0367][Total: 31.3634]	13.3+21.3s
+[Epoch 10]	Learning rate: 9.00e-5
+[400/1600]	[Charbonnier: 11.4974][HF: 20.3770][Total: 31.8745]	13.2+21.2s
+[800/1600]	[Charbonnier: 11.4665][HF: 20.3770][Total: 31.8435]	13.3+21.3s
+[1200/1600]	[Charbonnier: 11.2371][HF: 20.0086][Total: 31.2457]	13.3+21.3s
+[1600/1600]	[Charbonnier: 11.2840][HF: 19.9756][Total: 31.2597]	13.3+21.2s
+
+Evaluation:
+[DRSRD x4]	PSNR: 25.360 (Best: 25.444 @epoch 8)
+Forward: 42.27s
+
+Saving...
+Total: 43.56s
+

@@ -639,3 +639,75 @@ Forward: 54.87s
 Saving...
 Total: 56.21s
 
+[Epoch 3]	Learning rate: 2.00e-5
+[400/1600]	[Charbonnier: 12.7457][HF: 21.7338][Total: 34.4795]	17.2+5.3s
+[800/1600]	[Charbonnier: 12.5934][HF: 21.5621][Total: 34.1556]	17.4+4.8s
+[1200/1600]	[Charbonnier: 12.5658][HF: 21.6250][Total: 34.1908]	17.3+4.9s
+[1600/1600]	[Charbonnier: 12.5287][HF: 21.6132][Total: 34.1418]	17.2+5.0s
+[Epoch 4]	Learning rate: 3.00e-5
+[400/1600]	[Charbonnier: 12.3085][HF: 21.3367][Total: 33.6451]	17.2+5.1s
+[800/1600]	[Charbonnier: 12.2750][HF: 21.3174][Total: 33.5924]	17.3+4.9s
+[1200/1600]	[Charbonnier: 12.2562][HF: 21.3355][Total: 33.5917]	17.1+5.1s
+[1600/1600]	[Charbonnier: 12.2351][HF: 21.3296][Total: 33.5648]	17.1+5.1s
+
+Evaluation:
+[DRSRD x4]	PSNR: 24.499 (Best: 24.499 @epoch 4)
+Forward: 58.00s
+
+Saving...
+Total: 59.02s
+
+[Epoch 5]	Learning rate: 4.00e-5
+[400/1600]	[Charbonnier: 12.1840][HF: 21.3545][Total: 33.5385]	17.1+5.1s
+[800/1600]	[Charbonnier: 12.1555][HF: 21.3423][Total: 33.4978]	17.1+5.0s
+[1200/1600]	[Charbonnier: 12.1033][HF: 21.2604][Total: 33.3638]	17.2+5.0s
+[1600/1600]	[Charbonnier: 12.0667][HF: 21.2145][Total: 33.2812]	17.2+4.9s
+[Epoch 6]	Learning rate: 5.00e-5
+[400/1600]	[Charbonnier: 11.9267][HF: 21.0608][Total: 32.9874]	17.4+4.9s
+[800/1600]	[Charbonnier: 11.9714][HF: 21.1884][Total: 33.1598]	17.4+4.8s
+[1200/1600]	[Charbonnier: 11.8572][HF: 21.0179][Total: 32.8751]	17.6+4.7s
+[1600/1600]	[Charbonnier: 11.8303][HF: 21.0106][Total: 32.8409]	17.2+5.0s
+
+Evaluation:
+[DRSRD x4]	PSNR: 24.753 (Best: 24.753 @epoch 6)
+Forward: 55.10s
+
+Saving...
+Total: 56.08s
+
+[Epoch 7]	Learning rate: 6.00e-5
+[400/1600]	[Charbonnier: 11.5363][HF: 20.6592][Total: 32.1955]	17.1+5.1s
+[800/1600]	[Charbonnier: 11.5827][HF: 20.7960][Total: 32.3787]	17.1+5.0s
+[1200/1600]	[Charbonnier: 11.5470][HF: 20.7580][Total: 32.3049]	17.2+4.9s
+[1600/1600]	[Charbonnier: 11.4643][HF: 20.6339][Total: 32.0981]	17.6+4.7s
+[Epoch 8]	Learning rate: 7.00e-5
+[400/1600]	[Charbonnier: 11.1655][HF: 20.2294][Total: 31.3949]	17.4+5.3s
+[800/1600]	[Charbonnier: 11.1512][HF: 20.1927][Total: 31.3439]	17.2+5.0s
+[1200/1600]	[Charbonnier: 11.1632][HF: 20.2351][Total: 31.3983]	17.2+4.9s
+[1600/1600]	[Charbonnier: 11.1656][HF: 20.2550][Total: 31.4206]	17.1+5.0s
+
+Evaluation:
+[DRSRD x4]	PSNR: 25.305 (Best: 25.305 @epoch 8)
+Forward: 54.86s
+
+Saving...
+Total: 55.88s
+
+[Epoch 9]	Learning rate: 8.00e-5
+[400/1600]	[Charbonnier: 11.0579][HF: 20.1496][Total: 31.2075]	17.2+5.0s
+[800/1600]	[Charbonnier: 11.0398][HF: 20.0885][Total: 31.1283]	17.1+5.0s
+[1200/1600]	[Charbonnier: 11.0172][HF: 20.0474][Total: 31.0646]	17.3+4.9s
+[1600/1600]	[Charbonnier: 10.9568][HF: 19.9369][Total: 30.8938]	17.1+5.0s
+[Epoch 10]	Learning rate: 9.00e-5
+[400/1600]	[Charbonnier: 10.9834][HF: 20.0165][Total: 30.9999]	17.3+5.0s
+[800/1600]	[Charbonnier: 10.8490][HF: 19.7855][Total: 30.6345]	17.1+5.0s
+[1200/1600]	[Charbonnier: 10.8334][HF: 19.7445][Total: 30.5779]	17.3+4.8s
+[1600/1600]	[Charbonnier: 10.8308][HF: 19.7469][Total: 30.5777]	17.3+4.8s
+
+Evaluation:
+[DRSRD x4]	PSNR: 25.552 (Best: 25.552 @epoch 10)
+Forward: 53.76s
+
+Saving...
+Total: 54.74s
+

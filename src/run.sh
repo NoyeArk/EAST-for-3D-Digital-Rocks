@@ -44,13 +44,13 @@ MODE=$1
 
 if [ "$MODE" == "train" ]; then
     # 训练命令（注意：行末 \ 后不能有空格或注释，否则会断开命令）
-    CUDA_VISIBLE_DEVICES=1 uv run main.py \
+    CUDA_VISIBLE_DEVICES=0 uv run main.py \
         --dir_data "$data_dir" \
         --data_train DRSRD \
         --data_test DRSRD \
         --data_range '1-1600/1-200' \
-        --model EDSR \
-        --save 'EDSRtrain' \
+        --model SRCNN \
+        --save 'SRCNNtrain' \
         --n_GPUs 1 \
         --scale 4 \
         --save_results \
@@ -72,7 +72,7 @@ if [ "$MODE" == "train" ]; then
         --noise
 elif [ "$MODE" == "test" ]; then
     # 测试命令
-    CUDA_VISIBLE_DEVICES=0 uv run main.py \
+    CUDA_VISIBLE_DEVICES=1 uv run main.py \
         --model EDSR \
         --n_GPUs 1 \
         --dir_data "$data_dir" \
