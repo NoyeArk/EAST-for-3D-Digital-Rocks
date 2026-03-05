@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 训练数据路径，可以根据需要覆盖
-data_dir='/home/zql/code/EAST-for-3D-Digital-Rocks/DRP-211/DRSRD Dataset/DRSRD1_3D/DRSRD1_3D/shuffled3D'
+data_dir='/home/zql/code/refsr/EAST-for-3D-Digital-Rocks/DRP-211/DRSRD Dataset/DRSRD1_3D/DRSRD1_3D/shuffled3D'
 
 # 用法说明
 usage() {
@@ -49,12 +49,12 @@ if [ "$MODE" == "train" ]; then
         --data_train DRSRD \
         --data_test DRSRD \
         --data_range '1-1600/1-200' \
-        --model EAST \
-        --save '0211train' \
+        --model EDSR \
+        --save 'EDSRtrain' \
         --n_GPUs 1 \
         --scale 4 \
         --save_results \
-        --epochs 50 \
+        --epochs 10 \
         --batch_size 8 \
         --patch_size 64 \
         --warm_up 10 \
@@ -62,7 +62,7 @@ if [ "$MODE" == "train" ]; then
         --reset \
         --window_sizes '2-4-8' \
         --lr 1e-4 \
-        --test_every 10 \
+        --test_every 2 \
         --n_feats 180 \
         --n_resgroups 7 \
         --n_resblocks 5 \
@@ -72,13 +72,13 @@ if [ "$MODE" == "train" ]; then
         --noise
 elif [ "$MODE" == "test" ]; then
     # 测试命令
-    CUDA_VISIBLE_DEVICES=1 uv run main.py \
-        --model EAST \
+    CUDA_VISIBLE_DEVICES=0 uv run main.py \
+        --model EDSR \
         --n_GPUs 1 \
         --dir_data "$data_dir" \
         --scale 4 \
-        --pre_train ../experiment/0211train/model/model_best.pt \
-        --save 0211test \
+        --pre_train ../experiment/EDSRtrain/model/model_best.pt \
+        --save EDSRtest \
         --data_range '1-200/1-200' \
         --n_feats 180 \
         --n_resgroups 7 \

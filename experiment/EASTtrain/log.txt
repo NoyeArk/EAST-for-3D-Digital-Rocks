@@ -1,0 +1,641 @@
+EAST(
+  (sub_mean): MeanShift(1, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+  (add_mean): MeanShift(1, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+  (head): Sequential(
+    (0): Conv3d(1, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+  )
+  (body): Sequential(
+    (0): ResGroup(
+      (res_group): Sequential(
+        (0): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (1): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (2): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (3): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (4): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (5): Conv3d(180, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (6): CABlock(
+          (conv): Sequential(
+            (0): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+          )
+          (calayer): CALayer(
+            (avg_pool): AdaptiveAvgPool3d(output_size=1)
+            (conv_du): Sequential(
+              (0): Conv3d(90, 5, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (1): GELU(approximate='none')
+              (2): Conv3d(5, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (3): Sigmoid()
+            )
+          )
+        )
+        (7): Conv3d(90, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      )
+    )
+    (1): ResGroup(
+      (res_group): Sequential(
+        (0): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (1): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (2): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (3): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (4): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (5): Conv3d(180, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (6): CABlock(
+          (conv): Sequential(
+            (0): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+          )
+          (calayer): CALayer(
+            (avg_pool): AdaptiveAvgPool3d(output_size=1)
+            (conv_du): Sequential(
+              (0): Conv3d(90, 5, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (1): GELU(approximate='none')
+              (2): Conv3d(5, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (3): Sigmoid()
+            )
+          )
+        )
+        (7): Conv3d(90, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      )
+    )
+    (2): ResGroup(
+      (res_group): Sequential(
+        (0): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (1): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (2): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (3): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (4): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (5): Conv3d(180, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (6): CABlock(
+          (conv): Sequential(
+            (0): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+          )
+          (calayer): CALayer(
+            (avg_pool): AdaptiveAvgPool3d(output_size=1)
+            (conv_du): Sequential(
+              (0): Conv3d(90, 5, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (1): GELU(approximate='none')
+              (2): Conv3d(5, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (3): Sigmoid()
+            )
+          )
+        )
+        (7): Conv3d(90, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      )
+    )
+    (3): ResGroup(
+      (res_group): Sequential(
+        (0): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (1): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (2): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (3): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (4): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (5): Conv3d(180, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (6): CABlock(
+          (conv): Sequential(
+            (0): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+          )
+          (calayer): CALayer(
+            (avg_pool): AdaptiveAvgPool3d(output_size=1)
+            (conv_du): Sequential(
+              (0): Conv3d(90, 5, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (1): GELU(approximate='none')
+              (2): Conv3d(5, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (3): Sigmoid()
+            )
+          )
+        )
+        (7): Conv3d(90, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      )
+    )
+    (4): ResGroup(
+      (res_group): Sequential(
+        (0): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (1): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (2): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (3): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (4): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (5): Conv3d(180, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (6): CABlock(
+          (conv): Sequential(
+            (0): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+          )
+          (calayer): CALayer(
+            (avg_pool): AdaptiveAvgPool3d(output_size=1)
+            (conv_du): Sequential(
+              (0): Conv3d(90, 5, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (1): GELU(approximate='none')
+              (2): Conv3d(5, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (3): Sigmoid()
+            )
+          )
+        )
+        (7): Conv3d(90, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      )
+    )
+    (5): ResGroup(
+      (res_group): Sequential(
+        (0): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (1): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (2): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (3): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (4): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (5): Conv3d(180, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (6): CABlock(
+          (conv): Sequential(
+            (0): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+          )
+          (calayer): CALayer(
+            (avg_pool): AdaptiveAvgPool3d(output_size=1)
+            (conv_du): Sequential(
+              (0): Conv3d(90, 5, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (1): GELU(approximate='none')
+              (2): Conv3d(5, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (3): Sigmoid()
+            )
+          )
+        )
+        (7): Conv3d(90, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      )
+    )
+    (6): ResGroup(
+      (res_group): Sequential(
+        (0): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (1): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (2): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (3): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (4): ELAB(
+          (lfe): LFE(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (conv0): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (conv1): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (act): GELU(approximate='none')
+          )
+          (gmsa): GMSA(
+            (layernorm): LayerNorm((180,), eps=1e-05, elementwise_affine=True)
+            (project_inp): Conv3d(180, 540, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+            (project_out): Conv3d(180, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+          )
+        )
+        (5): Conv3d(180, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+        (6): CABlock(
+          (conv): Sequential(
+            (0): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): GELU(approximate='none')
+            (2): Conv3d(90, 90, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+          )
+          (calayer): CALayer(
+            (avg_pool): AdaptiveAvgPool3d(output_size=1)
+            (conv_du): Sequential(
+              (0): Conv3d(90, 5, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (1): GELU(approximate='none')
+              (2): Conv3d(5, 90, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+              (3): Sigmoid()
+            )
+          )
+        )
+        (7): Conv3d(90, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+      )
+    )
+  )
+  (tail): Sequential(
+    (0): Conv3d(180, 64, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+    (1): PixelShuffle3d()
+  )
+)
+Parameters: 10481863
+[Epoch 1]	Learning rate: 0.00e+2
+[400/1600]	[Charbonnier: 46.1856][HF: 50.2682][Total: 96.4538]	18.2+4.9s
+[800/1600]	[Charbonnier: 46.6181][HF: 50.5341][Total: 97.1522]	17.2+5.1s
+[1200/1600]	[Charbonnier: 46.3067][HF: 50.2424][Total: 96.5491]	17.3+5.0s
+[1600/1600]	[Charbonnier: 46.4766][HF: 50.3744][Total: 96.8510]	17.2+5.1s
+[Epoch 2]	Learning rate: 1.00e-5
+[400/1600]	[Charbonnier: 30.3220][HF: 35.1133][Total: 65.4353]	17.3+5.1s
+[800/1600]	[Charbonnier: 24.0860][HF: 30.0945][Total: 54.1805]	17.3+4.9s
+[1200/1600]	[Charbonnier: 20.8579][HF: 27.7538][Total: 48.6117]	17.5+4.8s
+[1600/1600]	[Charbonnier: 18.9620][HF: 26.4098][Total: 45.3719]	17.2+4.9s
+
+Evaluation:
+[DRSRD x4]	PSNR: 23.922 (Best: 23.922 @epoch 2)
+Forward: 54.87s
+
+Saving...
+Total: 56.21s
+

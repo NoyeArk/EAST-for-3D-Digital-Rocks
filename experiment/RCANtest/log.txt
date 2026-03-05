@@ -1,0 +1,623 @@
+RCAN(
+  (sub_mean): MeanShift(1, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+  (add_mean): MeanShift(1, 1, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+  (head): Sequential(
+    (0): Conv3d(1, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+  )
+  (body): Sequential(
+    (0): ResidualGroup(
+      (body): Sequential(
+        (0): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (1): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (2): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (3): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (4): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (5): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (1): ResidualGroup(
+      (body): Sequential(
+        (0): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (1): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (2): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (3): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (4): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (5): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (2): ResidualGroup(
+      (body): Sequential(
+        (0): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (1): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (2): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (3): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (4): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (5): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (3): ResidualGroup(
+      (body): Sequential(
+        (0): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (1): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (2): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (3): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (4): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (5): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (4): ResidualGroup(
+      (body): Sequential(
+        (0): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (1): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (2): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (3): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (4): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (5): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (5): ResidualGroup(
+      (body): Sequential(
+        (0): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (1): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (2): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (3): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (4): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (5): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (6): ResidualGroup(
+      (body): Sequential(
+        (0): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (1): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (2): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (3): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (4): RCAB(
+          (body): Sequential(
+            (0): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (1): ReLU(inplace=True)
+            (2): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+            (3): CALayer(
+              (avg_pool): AdaptiveAvgPool3d(output_size=1)
+              (conv_du): Sequential(
+                (0): Conv3d(180, 11, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (1): ReLU(inplace=True)
+                (2): Conv3d(11, 180, kernel_size=(1, 1, 1), stride=(1, 1, 1))
+                (3): Sigmoid()
+              )
+            )
+          )
+        )
+        (5): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      )
+    )
+    (7): Conv3d(180, 180, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+  )
+  (tail): Sequential(
+    (0): Upsampler(
+      (0): Conv3d(180, 1440, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (1): PixelShuffle3d()
+      (2): Conv3d(180, 1440, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (3): PixelShuffle3d()
+    )
+    (1): Conv3d(180, 1, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+  )
+)
+Parameters: 82403310
+
+Evaluation:
+[DRSRD x4]	PSNR: 25.708 (Best: 25.708 @epoch 1)
+Forward: 146.53s
+
+Saving...
+Total: 146.55s
+
