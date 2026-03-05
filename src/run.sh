@@ -73,12 +73,12 @@ if [ "$MODE" == "train" ]; then
 elif [ "$MODE" == "test" ]; then
     # 测试命令
     CUDA_VISIBLE_DEVICES=1 uv run main.py \
-        --model EDSR \
+        --model SRCNN \
         --n_GPUs 1 \
         --dir_data "$data_dir" \
         --scale 4 \
         --pre_train ../experiment/EDSRtrain/model/model_best.pt \
-        --save EDSRtest \
+        --save SRCNNtest \
         --data_range '1-200/1-200' \
         --n_feats 180 \
         --n_resgroups 7 \
